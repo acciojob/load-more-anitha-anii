@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "./../styles/App.css";
 
@@ -35,28 +34,24 @@ const items = [
   "Item 30"
 ];
 
-
 const ITEMS_PER_PAGE = 10;
 
 const App = () => {
   const [displayedItems, setDisplayedItems] = useState([]);
-  const [startItemIndex, setStartItemIndex] = useState(0);
 
   const handleLoadMore = () => {
-    const nextPageItems = items.slice(
-      startItemIndex,
-      startItemIndex + ITEMS_PER_PAGE
+    const nextItemsToDisplay = items.slice(
+      displayedItems.length,
+      displayedItems.length + ITEMS_PER_PAGE
     );
     setDisplayedItems((prevDisplayedItems) => [
       ...prevDisplayedItems,
-      ...nextPageItems,
+      ...nextItemsToDisplay,
     ]);
-    setStartItemIndex((prevStartItemIndex) => prevStartItemIndex + ITEMS_PER_PAGE);
   };
 
   const handleReset = () => {
     setDisplayedItems([]);
-    setStartItemIndex(0);
   };
 
   return (
@@ -74,6 +69,5 @@ const App = () => {
     </div>
   );
 };
-
 
 export default App;
