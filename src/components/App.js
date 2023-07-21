@@ -1,6 +1,6 @@
 
-import React from "react";
-import './../styles/App.css';
+import React, { useState } from "react";
+import "./../styles/App.css";
 
 const items = [
   "Item 1",
@@ -35,12 +35,45 @@ const items = [
   "Item 30"
 ];
 
+
+const ITEMS_PER_PAGE = 10;
+
 const App = () => {
+  const [displayedItems, setDisplayedItems] = useState([]);
+  const [startItemIndex, setStartItemIndex] = useState(0);
+
+  const handleLoadMore = () => {
+    const nextPageItems = items.slice(
+      startItemIndex,
+      startItemIndex + ITEMS_PER_PAGE
+    );
+    setDisplayedItems((prevDisplayedItems) => [
+      ...prevDisplayedItems,
+      ...nextPageItems,
+    ]);
+    setStartItemIndex((prevStartItemIndex) => prevStartItemIndex + ITEMS_PER_PAGE);
+  };
+
+  const handleReset = () => {
+    setDisplayedItems([]);
+    setStartItemIndex(0);
+  };
+
   return (
     <div>
-        {/* Do not remove the main div */}
+      <ul>
+        {displayedItems.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+      {displayedItems.length < items.length ? (
+        <button onClick={handleLoadMore}>Load More</button>
+      ) : (
+        <button onClick={handleReset}>Reset</button>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default App
+
+export default App;
