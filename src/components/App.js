@@ -34,7 +34,7 @@ const items = [
   "Item 30"
 ];
 
-const ITEMS_PER_PAGE = 10;
+
 
 const App = () => {
   const [displayedItems, setDisplayedItems] = useState([]);
@@ -42,7 +42,7 @@ const App = () => {
   const handleLoadMore = () => {
     const nextItemsToDisplay = items.slice(
       displayedItems.length,
-      displayedItems.length + ITEMS_PER_PAGE
+      displayedItems.length + 10
     );
     setDisplayedItems((prevDisplayedItems) => [
       ...prevDisplayedItems,
